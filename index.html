@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ALEX SMART English Speaking - Global Success 5 Master</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;900&family=Dancing+Script:wght@700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+    <style>
+        * { box-sizing: border-box; }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: #f0f4f8; overflow-x: hidden; }
+        
+        /* Certificate Print CSS */
+        .cert-frame {
+            width: 950px; height: 680px; background: white; border: 18px double #FFD700;
+            padding: 10px; margin: 20px auto; text-align: center; box-shadow: 0 0 80px rgba(0,0,0,0.2);
+            position: relative; background-image: url('https://www.transparenttextures.com/patterns/paper.png');
+        }
+        .cert-inner { 
+            border: 2px solid #FFD700; height: 100%; padding: 25px 40px; 
+            display: flex; flex-direction: column; justify-content: space-between;
+        }
+        .cert-title { font-family: 'Times New Roman', serif; font-size: 90px; color: #1e40af; font-weight: 900; letter-spacing: 4px; line-height: 1; }
+        .cert-stars { font-size: 60px; color: #fbbf24; margin: 5px 0; }
+        .cert-name { font-family: 'Montserrat', sans-serif; font-size: 65px; color: #dc2626; text-transform: uppercase; margin: 10px 0; font-weight: 900; border-bottom: 2px solid #eee; display: inline-block; padding: 0 40px; }
+        .cert-unit { font-size: 28px; font-weight: 800; color: #1e3a8a; text-transform: uppercase; margin: 5px 0; }
+        .cert-quote { font-family: 'Dancing Script', cursive; font-size: 26px; color: #16a34a; font-weight: bold; margin: 5px 0; }
+        
+        /* Signatures correctly fixed inside frame */
+        .teacher-section { display: flex; justify-content: space-around; align-items: flex-end; width: 100%; padding-bottom: 10px; margin-top: auto; }
+        .sig-box { width: 320px; text-align: center; border-top: 1.5px solid #444; padding-top: 5px; }
+        .teacher-name { font-family: 'Playfair Display', serif; font-size: 19px; font-weight: bold; color: #333; }
+
+        .mic-active { background-color: #ef4444 !important; animation: pulse 1s infinite; border: 4px solid white !important; }
+        @keyframes pulse { 0% { transform: scale(1); } 50% { transform: scale(1.05); } 100% { transform: scale(1); } }
+        @media print { .no-print { display: none; } body { background: white; } .cert-frame { margin: 0; box-shadow: none; transform: scale(1); } }
+    </style>
+</head>
+<body>
+
+<div id="app-container" class="max-w-4xl mx-auto my-6 no-print">
+    <!-- HEADER -->
+    <div class="bg-[#1e40af] text-white p-8 rounded-t-3xl text-center shadow-2xl border-b-8 border-yellow-400">
+        <h1 class="text-4xl font-black italic uppercase tracking-widest leading-tight">ALEX SMART English Speaking 🚀</h1>
+        <p class="text-md font-bold opacity-95 mt-1 uppercase italic tracking-tighter">Native British Mentor - Grade 5 Global Success</p>
+    </div>
+
+    <!-- MAIN BOX -->
+    <div class="bg-white p-10 shadow-2xl rounded-b-3xl border-x-4 border-b-4 border-blue-100 min-h-[600px]">
+        
+        <!-- STEP 1: LOGIN -->
+        <div id="step-setup" class="space-y-6">
+            <div class="bg-blue-50 p-8 rounded-3xl border-2 border-blue-100 shadow-inner">
+                <h2 class="text-2xl font-bold text-blue-900 mb-6 uppercase text-center">Student Information</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <input id="stu-name" type="text" placeholder="Full Name (Họ tên)" class="p-5 border-2 rounded-2xl outline-none focus:border-blue-500 text-xl font-bold uppercase shadow-sm">
+                    <input id="stu-class" type="text" placeholder="Class (Lớp)" class="p-5 border-2 rounded-2xl outline-none focus:border-blue-500 text-xl font-bold shadow-sm">
+                    <select id="stu-mode" class="p-5 border-2 rounded-2xl font-bold text-orange-600 bg-white shadow-sm cursor-pointer">
+                        <option value="alex-asks">Alex Asks (Alex hỏi - Em trả lời)</option>
+                        <option value="student-asks">Student Asks (Em hỏi - Alex trả lời)</option>
+                    </select>
+                    <select id="stu-unit" class="p-5 border-2 rounded-2xl font-bold text-blue-800 bg-white shadow-sm cursor-pointer"></select>
+                </div>
+            </div>
+            <button onclick="startSession()" class="w-full bg-[#16a34a] hover:bg-green-700 text-white py-6 rounded-3xl font-black text-3xl shadow-xl transition transform hover:scale-105 uppercase">BẮT ĐẦU NGAY ➔</button>
+        </div>
+
+        <!-- STEP 2: CHAT -->
+        <div id="step-chat" class="hidden text-center space-y-8">
+            <div id="status-tag" class="px-8 py-2 rounded-full inline-block text-white font-black text-sm uppercase shadow-lg bg-orange-500"></div>
+            
+            <div class="bg-slate-50 rounded-[40px] p-10 border-2 border-slate-200 shadow-inner relative">
+                <p id="alex-speech" class="text-3xl font-bold text-slate-800 leading-snug italic min-h-[120px] flex items-center justify-center"></p>
+                <div class="mt-8">
+                    <div class="inline-block border-4 border-dashed border-blue-300 rounded-3xl px-12 py-5 bg-white shadow-md">
+                        <span id="transcript" class="text-2xl text-gray-400 italic font-medium">"Click the Mic to speak..."</span>
+                    </div>
+                </div>
+            </div>
+
+            <button id="mic-btn" onclick="toggleListening()" class="bg-[#1e40af] text-white w-28 h-28 rounded-full flex items-center justify-center shadow-2xl transition hover:scale-110 mx-auto border-8 border-white">
+                <svg class="w-14 h-14" fill="currentColor" viewBox="0 0 20 20"><path d="M7 4a3 3 0 016 0v4a3 3 0 11-6 0V4zm4 10.93A7.001 7.001 0 0017 8a1 1 0 10-2 0A5 5 0 015 8a1 1 0 00-2 0 7.001 7.001 0 005.93 6.93V17H6a1 1 0 100 2h8a1 1 0 100-2h-3v-2.07z"></path></svg>
+            </button>
+
+            <!-- FEEDBACK PANEL -->
+            <div id="feedback-panel" class="hidden text-left space-y-6">
+                <div class="bg-orange-50 border-l-[12px] border-orange-500 rounded-3xl p-8 shadow-xl">
+                    <p class="text-orange-700 font-black text-xl flex items-center gap-3 italic uppercase">⚠️ Brilliant! Repeat after Alex:</p>
+                    <p id="suggested-text" class="text-3xl font-bold text-red-600 cursor-pointer hover:text-red-700 mt-2" onclick="speak(this.innerText)"></p>
+                </div>
+                <div class="bg-white border-4 border-red-50 p-8 rounded-3xl shadow-lg">
+                    <p class="font-black text-slate-400 mb-2 uppercase text-xs border-b pb-2">Mistake Review</p>
+                    <p id="mistake-you" class="text-2xl text-slate-700 mb-2"></p>
+                    <p id="mistake-correct" class="text-2xl text-green-700 font-bold"></p>
+                </div>
+                <button onclick="goNext()" class="w-full bg-[#16a34a] hover:bg-[#15803d] text-white py-6 rounded-3xl font-black text-3xl shadow-xl transition uppercase">Câu tiếp theo ➔</button>
+            </div>
+        </div>
+
+        <!-- STEP 3: FINISH -->
+        <div id="step-finish" class="hidden text-center py-16 space-y-10">
+            <h2 class="text-6xl font-black text-blue-900 tracking-tighter uppercase font-bold">Excellent! 🎉</h2>
+            <div id="star-rank" class="text-8xl text-yellow-400 drop-shadow-2xl">⭐⭐⭐⭐⭐</div>
+            <p id="final-comment" class="text-3xl italic text-blue-800 font-bold max-w-2xl mx-auto"></p>
+            <button onclick="showCert()" class="bg-red-600 hover:bg-red-700 text-white px-20 py-8 rounded-full font-black text-4xl shadow-2xl transition transform hover:rotate-2 uppercase">Nhận chứng nhận 🏆</button>
+        </div>
+    </div>
+</div>
+
+<!-- CERTIFICATE VIEW -->
+<div id="cert-area" class="hidden">
+    <div class="cert-frame">
+        <div class="cert-inner">
+            <div class="flex justify-center"><img src="https://cdn-icons-png.flaticon.com/512/179/179249.png" width="95" alt="Medal"></div>
+            <h1 class="cert-title uppercase">CERTIFICATE</h1>
+            <div class="cert-stars" id="cert-stars-display">⭐⭐⭐⭐⭐</div>
+            <p class="text-2xl font-bold italic text-gray-700">Proudly presented to</p>
+            <div class="cert-name" id="cert-name-display">STUDENT NAME</div>
+            <div class="cert-unit font-bold text-blue-900 mb-2 uppercase" id="cert-unit-display">MASTERED UNIT</div>
+            <div class="text-2xl font-bold mb-4" id="cert-class-display">Class: 5/1</div>
+            
+            <p class="cert-quote">"Please talk to Alex every day to speak English better!"</p>
+            
+            <div class="teacher-section">
+                <div class="sig-box">
+                    <p class="teacher-name italic">Mrs. Tran Thi Kim Yen</p>
+                </div>
+                <div class="sig-box">
+                    <p class="teacher-name italic">Mrs. Pham Thi Ngọc Bich</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="text-center mt-10 no-print pb-20 space-x-4">
+        <button onclick="window.print()" class="bg-green-600 text-white px-10 py-4 rounded-xl font-bold text-xl shadow-lg">In chứng nhận</button>
+        <button onclick="location.reload()" class="bg-gray-500 text-white px-10 py-4 rounded-xl font-bold text-xl shadow-lg">Làm bài khác</button>
+    </div>
+</div>
+
+<script>
+    // TOÀN BỘ 20 UNIT - DỮ LIỆU POINT AND SAY & LET'S TALK
+    const DATA = {
+        1: { name: "Unit 1: All about me!", script: [
+            { q: "Can you tell me about yourself?", keys: ["name", "is", "am", "class", "live"], model: "My name is Lan. I'm in Class 5C. I live in the countryside." },
+            { q: "What's your favourite sport?", keys: ["is", "like", "favourite", "tennis", "football"], model: "My favourite sport is table tennis." },
+            { q: "What's your favourite animal?", keys: ["dolphin", "monkey", "elephant", "is", "like"], model: "My favourite animal is a dolphin." }
+        ], knowledge: { "where": "I live in the countryside.", "yourself": "I am Alex. I'm in Class 5/1.", "favourite animal": "I love dolphins!", "favourite sport": "I like table tennis." }},
+        2: { name: "Unit 2: Our homes", script: [
+            { q: "Do you live in a house or a flat?", keys: ["house", "flat", "live"], model: "I live in a flat in a big tower." },
+            { q: "What's your address?", keys: ["it", "is", "address", "street"], model: "It's 81, Tran Hung Dao Street." }
+        ], knowledge: { "address": "My address is 10, Downing Street.", "house or flat": "I live in a digital flat." }},
+        3: { name: "Unit 3: My foreign friends", script: [
+            { q: "What nationality is he?", keys: ["is", "he", "she", "australian", "japanese"], model: "He is Australian." },
+            { q: "What's he like?", keys: ["kind", "friendly", "clever", "helpful"], model: "He is very friendly and helpful." }
+        ], knowledge: { "nationality": "I am British, of course!", "like": "I am very helpful." }},
+        5: { name: "Unit 5: My future job", script: [
+            { q: "What would you like to be in the future?", keys: ["be", "pilot", "doctor", "firefighter", "teacher"], model: "I'd like to be a teacher." },
+            { q: "Why would you like to be a teacher?", keys: ["because", "teach", "children"], model: "Because I'd like to teach children." }
+        ], knowledge: { "future": "I'd like to be a scientist.", "why": "Because I love helping people." }},
+        11: { name: "Unit 11: Family time", script: [
+            { q: "What did your family do last Sunday?", keys: ["ate", "visited", "took", "boat"], model: "We took a boat trip around the bay." }
+        ], knowledge: { "family": "We visited our grandparents." }},
+        15: { name: "Unit 15: Our health", script: [
+            { q: "What's the matter with you?", keys: ["have", "headache", "fever", "sore", "throat"], model: "I have a sore throat." },
+            { q: "What should you do?", keys: ["should", "go", "doctor", "dentist", "rest"], model: "You should go to the doctor and rest." }
+        ], knowledge: { "matter": "I have a toothache.", "should": "You should go to the dentist." }},
+        16: { name: "Unit 16: Seasons and the weather", script: [
+            { q: "How's the weather in spring?", keys: ["is", "it", "warm", "sunny", "wet"], model: "It's usually warm and wet." },
+            { q: "What do you usually wear in winter?", keys: ["wear", "jumper", "jeans", "coat"], model: "I usually wear a jumper and jeans." }
+        ], knowledge: { "weather": "It's sunny and windy today.", "wear": "I wear a scarf in winter." }},
+        20: { name: "Unit 20: Our summer holidays", script: [
+            { q: "Where are you going this summer?", keys: ["going", "visit", "phu quoc", "ha long"], model: "I'm going to visit Phu Quoc Island." }
+        ], knowledge: { "summer": "I'm going to visit London!" }}
+    };
+
+    // Everyday questions Alex can handle
+    const GENERAL_TALK = {
+        "how are you": "I am feeling absolutely splendid, thank you! And you?",
+        "your name": "My name is Alex, your polite English gentleman friend.",
+        "hello": "Jolly good to see you! How can I help you today?",
+        "weather": "The weather is quite marvelous in the digital world!",
+        "old": "I am young at heart, but older than the first microchip!"
+    };
+
+    let ss = { name: "", class: "", uId: 1, mode: "alex-asks", qIdx: 0, stars: 5 };
+
+    // Fill Units List
+    const uSelect = document.getElementById('stu-unit');
+    for (let i = 1; i <= 20; i++) {
+        let opt = document.createElement('option');
+        opt.value = i; opt.innerText = DATA[i] ? DATA[i].name : `Unit ${i}: (SGK Lesson)`;
+        uSelect.appendChild(opt);
+    }
+
+    function startSession() {
+        ss.name = document.getElementById('stu-name').value || "Học sinh";
+        ss.class = document.getElementById('stu-class').value || "5/1";
+        ss.uId = document.getElementById('stu-unit').value;
+        ss.mode = document.getElementById('stu-mode').value;
+        ss.qIdx = 0; ss.stars = 5;
+
+        document.getElementById('step-setup').classList.add('hidden');
+        document.getElementById('step-chat').classList.remove('hidden');
+        document.getElementById('status-tag').innerText = (ss.mode === 'alex-asks') ? "Alex Asks" : "Student Asks";
+        if(ss.mode === 'alex-asks') askNext(); else startStudentMode();
+    }
+
+    function askNext() {
+        const item = DATA[ss.uId].script[ss.qIdx];
+        document.getElementById('alex-speech').innerText = item.q;
+        document.getElementById('feedback-panel').classList.add('hidden');
+        document.getElementById('transcript').innerText = '"Nhấn Mic để nói..."';
+        speak(item.q);
+    }
+
+    function startStudentMode() {
+        let msg = `Hello ${ss.name}! Alex đã sẵn sàng. Hãy hỏi Alex về nội dung bài ${DATA[ss.uId].name} nhé!`;
+        document.getElementById('alex-speech').innerText = msg;
+        speak(msg);
+    }
+
+    function toggleListening() {
+        const sr = window.SpeechRecognition || window.webkitSpeechRecognition;
+        if(!sr) return alert("Trình duyệt không hỗ trợ!");
+        const rec = new sr(); rec.lang = 'en-US';
+        rec.onstart = () => document.getElementById('mic-btn').classList.add('mic-active');
+        rec.onresult = (e) => {
+            const t = e.results[0][0].transcript;
+            document.getElementById('transcript').innerText = `"${t}"`;
+            if(ss.mode === 'alex-asks') checkAnswer(t); else handleStudentAsk(t);
+        };
+        rec.onend = () => document.getElementById('mic-btn').classList.remove('mic-active');
+        rec.start();
+    }
+
+    function checkAnswer(t) {
+        const item = DATA[ss.uId].script[ss.qIdx];
+        const ok = item.keys.some(k => t.toLowerCase().includes(k));
+        document.getElementById('feedback-panel').classList.remove('hidden');
+        document.getElementById('suggested-text').innerText = item.model;
+        document.getElementById('mistake-you').innerHTML = `❌ Bạn nói: <span class="text-red-500 font-bold">${t}</span>`;
+        document.getElementById('mistake-correct').innerHTML = `✅ Mẫu câu chuẩn: <span class="text-green-700 font-bold">${item.model}</span>`;
+        
+        if(ok) speak("Splendid! Your pronunciation is marvelous. Repeat after me!");
+        else { ss.stars = Math.max(1, ss.stars - 1); speak("Almost there! Splendid effort, but listen to Alex and repeat."); }
+    }
+
+    function handleStudentAsk(t) {
+        let response = "That is a fascinating question! Tuy nhiên, hãy hỏi Alex kỹ hơn về bài " + DATA[ss.uId].name + " nhé.";
+        
+        for (let k in GENERAL_TALK) { if(t.toLowerCase().includes(k)) { response = GENERAL_TALK[k]; break; } }
+        const kn = DATA[ss.uId].knowledge;
+        for (let k in kn) { if(t.toLowerCase().includes(k)) { response = kn[k]; break; } }
+
+        document.getElementById('alex-speech').innerText = response;
+        speak(response);
+        setTimeout(() => {
+            ss.qIdx++;
+            if(ss.qIdx >= 3) finish();
+            else document.getElementById('transcript').innerText = '"Ask Alex another question!"';
+        }, 4000);
+    }
+
+    function goNext() {
+        ss.qIdx++;
+        if(ss.qIdx < DATA[ss.uId].script.length) askNext(); else finish();
+    }
+
+    function finish() {
+        document.getElementById('step-chat').classList.add('hidden');
+        document.getElementById('step-finish').classList.remove('hidden');
+        document.getElementById('star-rank').innerText = "⭐".repeat(Math.round(ss.stars));
+        document.getElementById('final-comment').innerText = `Marvelous ${ss.name}! Em đã hoàn thành xuất sắc bài hội thoại với ${Math.round(ss.stars)} sao!`;
+        new Audio('https://www.soundjay.com/misc/sounds/bell-ring-01.mp3').play();
+    }
+
+    function showCert() {
+        document.getElementById('app-container').classList.add('hidden');
+        document.getElementById('cert-area').classList.remove('hidden');
+        document.getElementById('cert-name-display').innerText = ss.name;
+        document.getElementById('cert-class-display').innerText = "Class: " + ss.class;
+        document.getElementById('cert-unit-display').innerText = "MASTERED " + DATA[ss.uId].name.toUpperCase();
+        document.getElementById('cert-stars-display').innerText = "⭐".repeat(Math.round(ss.stars));
+    }
+
+    function speak(t) {
+        const u = new SpeechSynthesisUtterance(t);
+        u.lang = 'en-GB'; u.rate = 0.85;
+        window.speechSynthesis.speak(u);
+    }
+</script>
+</body>
+</html>
